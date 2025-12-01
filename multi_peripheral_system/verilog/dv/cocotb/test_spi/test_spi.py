@@ -35,7 +35,7 @@ async def spi_dv(dut):
     if spi_ss.value != 0:
         await FallingEdge(spi_ss)
     cocotb.log.info("[TEST] SPI CS asserted")
-    caravelEnv.dut.gpio9_en.value  = 1  # enable gpio input
+    caravelEnv.dut.gpio35_en.value  = 1  # enable gpio input (MISO)
     spi_miso.value = 0
     for byte_idx in range(8):
         byte_val = 0
