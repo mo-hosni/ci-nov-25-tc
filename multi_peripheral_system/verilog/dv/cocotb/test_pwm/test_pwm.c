@@ -19,11 +19,11 @@ void main(void)
     // Housekeeping & pads
     enableHkSpi(false);
 
-    // GPIOs driven by the PWM outputs
-    GPIOs_configure(5,  GPIO_MODE_USER_STD_OUTPUT);
+    // GPIOs driven by the PWM outputs (PWM0-3 → GPIO 6,7,8,9)
+    GPIOs_configure(6,  GPIO_MODE_USER_STD_OUTPUT);
+    GPIOs_configure(7,  GPIO_MODE_USER_STD_OUTPUT);
     GPIOs_configure(8,  GPIO_MODE_USER_STD_OUTPUT);
-    GPIOs_configure(11, GPIO_MODE_USER_STD_OUTPUT);
-    GPIOs_configure(14, GPIO_MODE_USER_STD_OUTPUT);
+    GPIOs_configure(9,  GPIO_MODE_USER_STD_OUTPUT);
 
     GPIOs_loadConfigs();
     User_enableIF();

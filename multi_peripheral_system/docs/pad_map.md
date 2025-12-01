@@ -15,10 +15,10 @@ This document defines the GPIO pad assignments for all peripherals in the multi-
 | **PWM** | 0-11 | pwm_out | `mprj_io[17:6]` | 12 |
 | **UART** | 0-7 | tx, rx | `mprj_io[33:18]` | 16 (8×2) |
 | **SPI** | 0 | sck, mosi, miso, ss | `mprj_io[37:34]` | 4 |
-| **I2C** | 0 | scl, sda | `mprj_io[5], analog_io[0]` | 2 |
+| **I2C** | 0 | scl, sda | `mprj_io[5], mprj_io[4]` | 2 |
 | **ADC** | 0 | adc_in | `analog_io[16]` (GPIO23) | 1 |
 
-**Note**: I2C SDA uses analog_io[0] for bidirectional open-drain signaling.
+**Note**: I2C SDA and SCL use mprj_io digital pads for bidirectional open-drain signaling.
 
 ---
 
