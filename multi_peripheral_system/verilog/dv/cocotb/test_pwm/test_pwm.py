@@ -30,9 +30,9 @@ async def tmr32_dv(dut):
     # Allow some settling time
     await ClockCycles(caravelEnv.clk, 10_000)
 
-    # Sample four GPIOs for 5000 cycles
+    # Sample four GPIOs for 5000 cycles (PWM0-3 → GPIO 6,7,8,9)
     sample_cycles = 5000
-    pins = [5, 8, 11, 14]
+    pins = [6, 7, 8, 9]
 
     highs = {p: 0 for p in pins}
     lows  = {p: 0 for p in pins}
@@ -53,10 +53,10 @@ async def tmr32_dv(dut):
 
     cocotb.log.info(
         "[TEST] Results:\n"
-        f"  GPIO 5 : {highs[5]} high,  {lows[5]} low,  duty={duty(5):.2f}%\n"
-        f"  GPIO 8 : {highs[8]} high,  {lows[8]} low,  duty={duty(8):.2f}%\n"
-        f"  GPIO 11: {highs[11]} high, {lows[11]} low, duty={duty(11):.2f}%\n"
-        f"  GPIO 14: {highs[14]} high, {lows[14]} low, duty={duty(14):.2f}%"
+        f"  GPIO 6: {highs[6]} high,  {lows[6]} low,  duty={duty(6):.2f}%\n"
+        f"  GPIO 7: {highs[7]} high,  {lows[7]} low,  duty={duty(7):.2f}%\n"
+        f"  GPIO 8: {highs[8]} high,  {lows[8]} low,  duty={duty(8):.2f}%\n"
+        f"  GPIO 9: {highs[9]} high,  {lows[9]} low,  duty={duty(9):.2f}%"
     )
 
     # Basic toggling checks: both high and low counts should be "significant"

@@ -4,7 +4,7 @@
 // -------------------------------
 // UART base and helpers
 // -------------------------------
-#define UART_BASE 0x30000000
+#define UART_BASE 0x300C0000
 #define UART ((CF_UART_TYPE_PTR)UART_BASE)
 
 // Helper to set baud rate prescaler using 45MHz clock
@@ -20,9 +20,9 @@ void main(void)
     // Disable housekeeping SPI and prep pads
     enableHkSpi(false);
 
-    // Configure the pads that the IP touches (UART TX=5, RX=6)
-    GPIOs_configure(5, GPIO_MODE_USER_STD_OUTPUT);
-    GPIOs_configure(6, GPIO_MODE_USER_STD_INPUT_PULLUP);
+    // Configure the pads that the IP touches (UART0 TX=18, RX=19)
+    GPIOs_configure(18, GPIO_MODE_USER_STD_OUTPUT);
+    GPIOs_configure(19, GPIO_MODE_USER_STD_INPUT_PULLUP);
     GPIOs_loadConfigs();
 
     // Enable Wishbone access for user project

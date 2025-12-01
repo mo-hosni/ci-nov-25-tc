@@ -15,8 +15,8 @@ async def uart_dv(dut):
     vgpio = VirtualGPIOModel(caravelEnv)
     vgpio.start()
 
-    # Prepare UART monitor on external pins (TX=5, RX=6)
-    uart = UART(caravelEnv, {"tx": 5, "rx": 6})
+    # Prepare UART monitor on external pins (UART0: TX=18, RX=19)
+    uart = UART(caravelEnv, {"tx": 18, "rx": 19})
     uart.baud_rate = 115200
 
     cocotb.log.info("[TEST] Waiting for firmware signal sequence via Virtual GPIO...")
