@@ -227,7 +227,7 @@ module user_project (
     WB_PIC pic_inst (
         .clk(wb_clk_i),
         .rst_n(~wb_rst_i),
-        .irq_lines({7'b0000000, peripheral_irqs[22:14], peripheral_irqs[12:0]}),
+        .irq_lines(peripheral_irqs[15:0]),
         .irq_out(pic_irq_out),
         .wb_adr_i(s_wb_adr[25*32 +: 32]),
         .wb_dat_i(s_wb_dat_o[25*32 +: 32]),
@@ -239,6 +239,10 @@ module user_project (
         .wb_ack_o(s_wb_ack[25])
     );
     assign s_wb_err[25] = 1'b0;
+
+    assign user_irq[0] = pic_irq_out;
+    assign user_irq[1] = |peripheral_irqs[22:16];
+    assign user_irq[2] = 1'b0;
 
     assign s_wb_dat_i[26*32 +: 32] = 32'hDEADBEEF;
     assign s_wb_ack[26] = s_wb_cyc[26] && s_wb_stb[26];
