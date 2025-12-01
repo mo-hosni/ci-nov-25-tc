@@ -82,41 +82,88 @@ module user_project_wrapper #(
 /* User project is instantiated  here   */
 /*--------------------------------------*/
 
-user_proj_example mprj (
+    wire [11:0] pwm_out;
+    wire [7:0] uart_tx;
+    wire [7:0] uart_rx;
+    wire spi_sck;
+    wire spi_mosi;
+    wire spi_miso;
+    wire spi_ss;
+    wire i2c_scl_out;
+    wire i2c_scl_in;
+    wire i2c_scl_oe;
+    wire i2c_sda_out;
+    wire i2c_sda_in;
+    wire i2c_sda_oe;
+
+    user_project mprj (
 `ifdef USE_POWER_PINS
-	.vccd1(vccd1),	// User area 1 1.8V power
-	.vssd1(vssd1),	// User area 1 digital ground
+        .vccd2(vccd2),
+        .vssd2(vssd2),
+        .AVPWR(vdda2),
+        .AVGND(vssa2),
 `endif
+        .wb_clk_i(wb_clk_i),
+        .wb_rst_i(wb_rst_i),
+        .wbs_cyc_i(wbs_cyc_i),
+        .wbs_stb_i(wbs_stb_i),
+        .wbs_we_i(wbs_we_i),
+        .wbs_sel_i(wbs_sel_i),
+        .wbs_adr_i(wbs_adr_i),
+        .wbs_dat_i(wbs_dat_i),
+        .wbs_ack_o(wbs_ack_o),
+        .wbs_dat_o(wbs_dat_o),
+        .user_irq(user_irq),
+        .pwm_out(pwm_out),
+        .uart_tx(uart_tx),
+        .uart_rx(uart_rx),
+        .spi_sck(spi_sck),
+        .spi_mosi(spi_mosi),
+        .spi_miso(spi_miso),
+        .spi_ss(spi_ss),
+        .i2c_scl_out(i2c_scl_out),
+        .i2c_scl_in(i2c_scl_in),
+        .i2c_scl_oe(i2c_scl_oe),
+        .i2c_sda_out(i2c_sda_out),
+        .i2c_sda_in(i2c_sda_in),
+        .i2c_sda_oe(i2c_sda_oe),
+        .adc_in(analog_io[16])
+    );
 
-    .wb_clk_i(wb_clk_i),
-    .wb_rst_i(wb_rst_i),
+    assign io_out[17:6] = pwm_out;
+    assign io_oeb[17:6] = 12'b0;
 
-    // MGMT SoC Wishbone Slave
+    assign uart_rx = io_in[25:18];
+    assign io_out[25:18] = 8'b0;
+    assign io_oeb[25:18] = 8'hFF;
 
-    .wbs_cyc_i(wbs_cyc_i),
-    .wbs_stb_i(wbs_stb_i),
-    .wbs_we_i(wbs_we_i),
-    .wbs_sel_i(wbs_sel_i),
-    .wbs_adr_i(wbs_adr_i),
-    .wbs_dat_i(wbs_dat_i),
-    .wbs_ack_o(wbs_ack_o),
-    .wbs_dat_o(wbs_dat_o),
+    assign io_out[33:26] = uart_tx;
+    assign io_oeb[33:26] = 8'b0;
 
-    // Logic Analyzer
+    assign io_out[34] = spi_sck;
+    assign io_oeb[34] = 1'b0;
 
-    .la_data_in(la_data_in),
-    .la_data_out(la_data_out),
-    .la_oenb (la_oenb),
+    assign io_out[35] = spi_mosi;
+    assign io_oeb[35] = 1'b0;
 
-    // IO Pads
+    assign spi_miso = io_in[36];
+    assign io_out[36] = 1'b0;
+    assign io_oeb[36] = 1'b1;
 
-    .io_in ({io_in[37:30],io_in[7:0]}),
-    .io_out({io_out[37:30],io_out[7:0]}),
-    .io_oeb({io_oeb[37:30],io_oeb[7:0]}),
+    assign io_out[37] = spi_ss;
+    assign io_oeb[37] = 1'b0;
 
-    // IRQ
-    .irq(user_irq)
-);
+    assign io_out[5] = i2c_scl_oe ? 1'b0 : i2c_scl_out;
+    assign i2c_scl_in = io_in[5];
+    assign io_oeb[5] = ~i2c_scl_oe;
+
+    assign analog_io[0] = i2c_sda_oe ? 1'b0 : i2c_sda_out;
+    assign i2c_sda_in = analog_io[0];
+
+    assign io_out[4:0] = 5'b0;
+    assign io_oeb[4:0] = 5'b11111;
+
+    assign la_data_out = 128'b0;
 
 endmodule	// user_project_wrapper
 

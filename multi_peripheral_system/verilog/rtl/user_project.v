@@ -248,10 +248,6 @@ module user_project (
     assign s_wb_ack[26] = s_wb_cyc[26] && s_wb_stb[26];
     assign s_wb_err[26] = 1'b0;
 
-    assign user_irq[2] = pic_irq_out;
-    assign user_irq[1] = 1'b0;
-    assign user_irq[0] = 1'b0;
-
 endmodule
 
 `default_nettype wire
