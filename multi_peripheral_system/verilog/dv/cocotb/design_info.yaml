@@ -1,9 +1,51 @@
-CARAVEL_ROOT: /nc/templates/caravel
-MCW_ROOT: /nc/templates/mgmt_core_wrapper
+CARAVEL_ROOT: /nc/caravel
+MCW_ROOT: /nc/caravel_mgmt_soc_litex
 PDK: sky130A
 PDK_ROOT: /nc/apps/pdk
-USER_PROJECT_ROOT: /workspace/caravel_user_project
+USER_PROJECT_ROOT: /workspace/ci-nov-25-tc/multi_peripheral_system
 caravan: false
-clk_period_ns: 25      # Clock period in nanoseconds
+clk_period_ns: 25
 emailto:
 - null
+
+# Design configuration
+DESIGN_NAME: user_project_wrapper
+
+# Include paths for IP cores
+include_paths:
+  - /workspace/ci-nov-25-tc/multi_peripheral_system/ip/CF_TMR32/hdl/rtl
+  - /workspace/ci-nov-25-tc/multi_peripheral_system/ip/CF_TMR32/fw
+  - /workspace/ci-nov-25-tc/multi_peripheral_system/ip/CF_UART/hdl/rtl
+  - /workspace/ci-nov-25-tc/multi_peripheral_system/ip/CF_UART/fw
+  - /workspace/ci-nov-25-tc/multi_peripheral_system/ip/CF_SPI/hdl/rtl
+  - /workspace/ci-nov-25-tc/multi_peripheral_system/ip/CF_SPI/fw
+  - /workspace/ci-nov-25-tc/multi_peripheral_system/ip/CF_I2C/hdl/rtl
+  - /workspace/ci-nov-25-tc/multi_peripheral_system/ip/CF_I2C/fw
+  - /workspace/ci-nov-25-tc/multi_peripheral_system/ip/CF_SRAM_1024x32/hdl/rtl
+  - /workspace/ci-nov-25-tc/multi_peripheral_system/ip/CF_IP_UTIL/hdl/rtl
+  - /workspace/ci-nov-25-tc/multi_peripheral_system/verilog/rtl
+  - /workspace/ci-nov-25-tc/multi_peripheral_system/verilog/rtl/stubs
+
+# Tests configuration
+tests:
+  - name: test_pwm
+    toplevel: caravel
+    timeout_cycles: 500000
+  - name: test_uart
+    toplevel: caravel
+    timeout_cycles: 500000
+  - name: test_spi
+    toplevel: caravel
+    timeout_cycles: 1000000
+  - name: test_i2c
+    toplevel: caravel
+    timeout_cycles: 500000
+  - name: test_sram
+    toplevel: caravel
+    timeout_cycles: 500000
+  - name: test_adc
+    toplevel: caravel
+    timeout_cycles: 500000
+  - name: test_system
+    toplevel: caravel
+    timeout_cycles: 1000000
