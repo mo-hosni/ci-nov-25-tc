@@ -168,14 +168,14 @@ module user_project (
 `endif
         .wb_clk_i(wb_clk_i),
         .wb_rst_i(wb_rst_i),
-        .wb_adr_i(s_wb_adr[22*32 +: 32]),
-        .wb_dat_i(s_wb_dat_o[22*32 +: 32]),
-        .wb_dat_o(s_wb_dat_i[22*32 +: 32]),
-        .wb_sel_i(s_wb_sel[22*4 +: 4]),
-        .wb_cyc_i(s_wb_cyc[22]),
-        .wb_stb_i(s_wb_stb[22]),
-        .wb_we_i(s_wb_we[22]),
-        .wb_ack_o(s_wb_ack[22])
+        .wbs_adr_i(s_wb_adr[22*32 +: 32]),
+        .wbs_dat_i(s_wb_dat_o[22*32 +: 32]),
+        .wbs_dat_o(s_wb_dat_i[22*32 +: 32]),
+        .wbs_sel_i(s_wb_sel[22*4 +: 4]),
+        .wbs_cyc_i(s_wb_cyc[22]),
+        .wbs_stb_i(s_wb_stb[22]),
+        .wbs_we_i(s_wb_we[22]),
+        .wbs_ack_o(s_wb_ack[22])
     );
     assign s_wb_err[22] = 1'b0;
 
@@ -186,14 +186,14 @@ module user_project (
 `endif
         .wb_clk_i(wb_clk_i),
         .wb_rst_i(wb_rst_i),
-        .wb_adr_i(s_wb_adr[23*32 +: 32]),
-        .wb_dat_i(s_wb_dat_o[23*32 +: 32]),
-        .wb_dat_o(s_wb_dat_i[23*32 +: 32]),
-        .wb_sel_i(s_wb_sel[23*4 +: 4]),
-        .wb_cyc_i(s_wb_cyc[23]),
-        .wb_stb_i(s_wb_stb[23]),
-        .wb_we_i(s_wb_we[23]),
-        .wb_ack_o(s_wb_ack[23])
+        .wbs_adr_i(s_wb_adr[23*32 +: 32]),
+        .wbs_dat_i(s_wb_dat_o[23*32 +: 32]),
+        .wbs_dat_o(s_wb_dat_i[23*32 +: 32]),
+        .wbs_sel_i(s_wb_sel[23*4 +: 4]),
+        .wbs_cyc_i(s_wb_cyc[23]),
+        .wbs_stb_i(s_wb_stb[23]),
+        .wbs_we_i(s_wb_we[23]),
+        .wbs_ack_o(s_wb_ack[23])
     );
     assign s_wb_err[23] = 1'b0;
 
