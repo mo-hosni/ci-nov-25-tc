@@ -2,7 +2,7 @@
 
 #define ERROR_CODE 0xEEEE
 
-#define SRAM_BASE 0x30010000
+#define SRAM_BASE 0x30160000
 #define SRAM_SIZE 1024
 
 #define ADDR_FIRST 0

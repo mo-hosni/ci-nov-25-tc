@@ -15,10 +15,11 @@ async def spi_dv(dut):
     vgpio = VirtualGPIOModel(caravelEnv)
     vgpio.start()
 
-    spi_mosi = caravelEnv.dut.gpio8_monitor
-    spi_miso = caravelEnv.dut.gpio9
-    spi_sck = caravelEnv.dut.gpio10_monitor
-    spi_ss = caravelEnv.dut.gpio11_monitor
+    # SPI0: SCK=37, MOSI=36, MISO=35, SS=34
+    spi_mosi = caravelEnv.dut.gpio36_monitor
+    spi_miso = caravelEnv.dut.gpio35
+    spi_sck = caravelEnv.dut.gpio37_monitor
+    spi_ss = caravelEnv.dut.gpio34_monitor
 
     cocotb.log.info("[TEST] Waiting for firmware ready signal (vgpio=1)")
     await vgpio.wait_output(1)

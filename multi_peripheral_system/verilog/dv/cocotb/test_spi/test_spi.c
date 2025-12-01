@@ -1,16 +1,17 @@
 #include <firmware_apis.h>
 #include <CF_SPI.h>
 
-#define SPI_BASE 0x30000000
+#define SPI_BASE 0x30140000
 
 void main(void)
 {
     enableHkSpi(false);
 
-    GPIOs_configure(8, GPIO_MODE_USER_STD_OUTPUT);
-    GPIOs_configure(9, GPIO_MODE_USER_STD_INPUT_NOPULL);
-    GPIOs_configure(10, GPIO_MODE_USER_STD_OUTPUT);  // clk
-    GPIOs_configure(11, GPIO_MODE_USER_STD_OUTPUT);  // ss
+    // SPI0: SCK=37, MOSI=36, MISO=35, SS=34
+    GPIOs_configure(36, GPIO_MODE_USER_STD_OUTPUT);  // MOSI
+    GPIOs_configure(35, GPIO_MODE_USER_STD_INPUT_NOPULL);  // MISO
+    GPIOs_configure(37, GPIO_MODE_USER_STD_OUTPUT);  // SCK
+    GPIOs_configure(34, GPIO_MODE_USER_STD_OUTPUT);  // SS
     GPIOs_loadConfigs();
 
     User_enableIF();
