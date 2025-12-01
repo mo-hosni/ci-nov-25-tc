@@ -95,12 +95,34 @@ module adc_wb_wrapper (
     );
 
     ADC_TOP adc_top_inst (
+        .AVPWR(
 `ifdef USE_POWER_PINS
-        .AVPWR(AVPWR),
-        .AVGND(AVGND),
-        .DVPWR(VPWR),
-        .DVGND(VGND),
+            AVPWR
+`else
+            1'b1
 `endif
+        ),
+        .AVGND(
+`ifdef USE_POWER_PINS
+            AVGND
+`else
+            1'b0
+`endif
+        ),
+        .DVPWR(
+`ifdef USE_POWER_PINS
+            VPWR
+`else
+            1'b1
+`endif
+        ),
+        .DVGND(
+`ifdef USE_POWER_PINS
+            VGND
+`else
+            1'b0
+`endif
+        ),
         .adc_in(adc_in),
         .ena_follower_amp(adc_enable),
         .ena_adc(adc_enable),
