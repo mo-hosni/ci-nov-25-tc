@@ -14,7 +14,38 @@
 # SPDX-License-Identifier: Apache-2.0
 
 # Caravel user project includes
--v $(USER_PROJECT_VERILOG)/rtl/user_project_wrapper.v	     
--v $(USER_PROJECT_VERILOG)/rtl/user_proj_example.v
+-v $(USER_PROJECT_VERILOG)/rtl/user_project_wrapper.v
+-v $(USER_PROJECT_VERILOG)/rtl/user_project.v
+-v $(USER_PROJECT_VERILOG)/rtl/adc_wb_wrapper.v
+-v $(USER_PROJECT_VERILOG)/rtl/wishbone_bus_splitter.v
+-v $(USER_PROJECT_VERILOG)/rtl/WB_PIC.v
 
+# IP includes - CF_TMR32 (PWM)
+-v $(USER_PROJECT_VERILOG)/../ip/CF_TMR32/hdl/rtl/CF_TMR32.v
+-v $(USER_PROJECT_VERILOG)/../ip/CF_TMR32/hdl/rtl/bus_wrappers/CF_TMR32_WB.v
+
+# IP includes - CF_UART
+-v $(USER_PROJECT_VERILOG)/../ip/CF_UART/hdl/rtl/CF_UART.v
+-v $(USER_PROJECT_VERILOG)/../ip/CF_UART/hdl/rtl/bus_wrappers/CF_UART_WB.v
+
+# IP includes - CF_SPI
+-v $(USER_PROJECT_VERILOG)/../ip/CF_SPI/hdl/rtl/CF_SPI.v
+-v $(USER_PROJECT_VERILOG)/../ip/CF_SPI/hdl/rtl/bus_wrappers/CF_SPI_WB.v
+
+# IP includes - CF_I2C
+-v $(USER_PROJECT_VERILOG)/../ip/CF_I2C/hdl/rtl/CF_I2C.v
+-v $(USER_PROJECT_VERILOG)/../ip/CF_I2C/hdl/rtl/bus_wrappers/CF_I2C_WB.v
+
+# IP includes - CF_SRAM_1024x32
+-v $(USER_PROJECT_VERILOG)/../ip/CF_SRAM_1024x32/hdl/CF_SRAM_1024x32.v
+-v $(USER_PROJECT_VERILOG)/../ip/CF_SRAM_1024x32/hdl/bus_wrapper/CF_SRAM_1024x32_wb_wrapper.v
+-v $(USER_PROJECT_VERILOG)/../ip/CF_SRAM_1024x32/hdl/controllers/ram_wb_controller.v
+
+# IP includes - ADC
+-v $(USER_PROJECT_VERILOG)/../ip/sky130_ef_ip__adc3v_12bit/verilog/sar_ctrl.v
+-v $(USER_PROJECT_VERILOG)/../ip/sky130_ef_ip__adc3v_12bit/verilog/ADC_TOP.pnl.v
+
+# IP Utilities
+-v $(USER_PROJECT_VERILOG)/../ip/CF_IP_UTIL/hdl/rtl/cf_fifo.v
+-v $(USER_PROJECT_VERILOG)/../ip/CF_IP_UTIL/hdl/rtl/cf_glitch_filter.v
  

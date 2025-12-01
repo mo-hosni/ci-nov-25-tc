@@ -157,11 +157,12 @@ module user_project_wrapper #(
     assign i2c_scl_in = io_in[5];
     assign io_oeb[5] = ~i2c_scl_oe;
 
-    assign analog_io[0] = i2c_sda_oe ? 1'b0 : i2c_sda_out;
-    assign i2c_sda_in = analog_io[0];
+    assign io_out[4] = i2c_sda_oe ? 1'b0 : i2c_sda_out;
+    assign i2c_sda_in = io_in[4];
+    assign io_oeb[4] = ~i2c_sda_oe;
 
-    assign io_out[4:0] = 5'b0;
-    assign io_oeb[4:0] = 5'b11111;
+    assign io_out[3:0] = 4'b0;
+    assign io_oeb[3:0] = 4'b1111;
 
     assign la_data_out = 128'b0;
 
