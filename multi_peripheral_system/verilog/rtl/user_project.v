@@ -86,101 +86,85 @@ module user_project (
     generate
         for (i = 0; i < 12; i = i + 1) begin : pwm_gen
             CF_TMR32_WB pwm_inst (
-`ifdef USE_POWER_PINS
-                .VPWR(vccd2),
-                .VGND(vssd2),
-`endif
-                .clk(wb_clk_i),
-                .rst_n(~wb_rst_i),
-                .wb_adr_i(s_wb_adr[i*32 +: 32]),
-                .wb_dat_i(s_wb_dat_o[i*32 +: 32]),
-                .wb_dat_o(s_wb_dat_i[i*32 +: 32]),
-                .wb_sel_i(s_wb_sel[i*4 +: 4]),
-                .wb_cyc_i(s_wb_cyc[i]),
-                .wb_stb_i(s_wb_stb[i]),
-                .wb_we_i(s_wb_we[i]),
-                .wb_ack_o(s_wb_ack[i]),
-                .pwm_out(pwm_out[i]),
-                .pwm1_out(),
-                .trig_in(1'b0),
-                .irq(peripheral_irqs[i])
+                .clk_i(wb_clk_i),
+                .rst_i(wb_rst_i),
+                .adr_i(s_wb_adr[i*32 +: 32]),
+                .dat_i(s_wb_dat_o[i*32 +: 32]),
+                .dat_o(s_wb_dat_i[i*32 +: 32]),
+                .sel_i(s_wb_sel[i*4 +: 4]),
+                .cyc_i(s_wb_cyc[i]),
+                .stb_i(s_wb_stb[i]),
+                .we_i(s_wb_we[i]),
+                .ack_o(s_wb_ack[i]),
+                .IRQ(peripheral_irqs[i]),
+                .pwm0(pwm_out[i]),
+                .pwm1(),
+                .pwm_fault(1'b0)
             );
             assign s_wb_err[i] = 1'b0;
         end
 
         for (i = 12; i < 20; i = i + 1) begin : uart_gen
             CF_UART_WB uart_inst (
-`ifdef USE_POWER_PINS
-                .VPWR(vccd2),
-                .VGND(vssd2),
-`endif
-                .clk(wb_clk_i),
-                .rst_n(~wb_rst_i),
-                .wb_adr_i(s_wb_adr[i*32 +: 32]),
-                .wb_dat_i(s_wb_dat_o[i*32 +: 32]),
-                .wb_dat_o(s_wb_dat_i[i*32 +: 32]),
-                .wb_sel_i(s_wb_sel[i*4 +: 4]),
-                .wb_cyc_i(s_wb_cyc[i]),
-                .wb_stb_i(s_wb_stb[i]),
-                .wb_we_i(s_wb_we[i]),
-                .wb_ack_o(s_wb_ack[i]),
+                .clk_i(wb_clk_i),
+                .rst_i(wb_rst_i),
+                .adr_i(s_wb_adr[i*32 +: 32]),
+                .dat_i(s_wb_dat_o[i*32 +: 32]),
+                .dat_o(s_wb_dat_i[i*32 +: 32]),
+                .sel_i(s_wb_sel[i*4 +: 4]),
+                .cyc_i(s_wb_cyc[i]),
+                .stb_i(s_wb_stb[i]),
+                .we_i(s_wb_we[i]),
+                .ack_o(s_wb_ack[i]),
+                .IRQ(peripheral_irqs[i]),
                 .tx(uart_tx[i-12]),
-                .rx(uart_rx[i-12]),
-                .irq(peripheral_irqs[i])
+                .rx(uart_rx[i-12])
             );
             assign s_wb_err[i] = 1'b0;
         end
     endgenerate
 
     CF_SPI_WB spi_inst (
-`ifdef USE_POWER_PINS
-        .VPWR(vccd2),
-        .VGND(vssd2),
-`endif
-        .clk(wb_clk_i),
-        .rst_n(~wb_rst_i),
-        .wb_adr_i(s_wb_adr[20*32 +: 32]),
-        .wb_dat_i(s_wb_dat_o[20*32 +: 32]),
-        .wb_dat_o(s_wb_dat_i[20*32 +: 32]),
-        .wb_sel_i(s_wb_sel[20*4 +: 4]),
-        .wb_cyc_i(s_wb_cyc[20]),
-        .wb_stb_i(s_wb_stb[20]),
-        .wb_we_i(s_wb_we[20]),
-        .wb_ack_o(s_wb_ack[20]),
-        .sck(spi_sck),
+        .clk_i(wb_clk_i),
+        .rst_i(wb_rst_i),
+        .adr_i(s_wb_adr[20*32 +: 32]),
+        .dat_i(s_wb_dat_o[20*32 +: 32]),
+        .dat_o(s_wb_dat_i[20*32 +: 32]),
+        .sel_i(s_wb_sel[20*4 +: 4]),
+        .cyc_i(s_wb_cyc[20]),
+        .stb_i(s_wb_stb[20]),
+        .we_i(s_wb_we[20]),
+        .ack_o(s_wb_ack[20]),
+        .IRQ(peripheral_irqs[20]),
+        .sclk(spi_sck),
         .mosi(spi_mosi),
         .miso(spi_miso),
-        .ss(spi_ss),
-        .irq(peripheral_irqs[20])
+        .csb(spi_ss)
     );
     assign s_wb_err[20] = 1'b0;
 
     CF_I2C_WB i2c_inst (
-`ifdef USE_POWER_PINS
-        .VPWR(vccd2),
-        .VGND(vssd2),
-`endif
-        .clk(wb_clk_i),
-        .rst_n(~wb_rst_i),
-        .wb_adr_i(s_wb_adr[21*32 +: 32]),
-        .wb_dat_i(s_wb_dat_o[21*32 +: 32]),
-        .wb_dat_o(s_wb_dat_i[21*32 +: 32]),
-        .wb_sel_i(s_wb_sel[21*4 +: 4]),
-        .wb_cyc_i(s_wb_cyc[21]),
-        .wb_stb_i(s_wb_stb[21]),
-        .wb_we_i(s_wb_we[21]),
-        .wb_ack_o(s_wb_ack[21]),
+        .clk_i(wb_clk_i),
+        .rst_i(wb_rst_i),
+        .adr_i(s_wb_adr[21*32 +: 32]),
+        .dat_i(s_wb_dat_o[21*32 +: 32]),
+        .dat_o(s_wb_dat_i[21*32 +: 32]),
+        .sel_i(s_wb_sel[21*4 +: 4]),
+        .cyc_i(s_wb_cyc[21]),
+        .stb_i(s_wb_stb[21]),
+        .we_i(s_wb_we[21]),
+        .ack_o(s_wb_ack[21]),
+        .IRQ(peripheral_irqs[21]),
         .scl_i(i2c_scl_in),
         .scl_o(i2c_scl_out),
         .scl_oen_o(i2c_scl_oe),
         .sda_i(i2c_sda_in),
         .sda_o(i2c_sda_out),
-        .sda_oen_o(i2c_sda_oe),
-        .irq(peripheral_irqs[21])
+        .sda_oen_o(i2c_sda_oe)
     );
     assign s_wb_err[21] = 1'b0;
 
-    CF_SRAM_1024x32_WB sram0_inst (
+    CF_SRAM_1024x32_wb_wrapper sram0_inst (
 `ifdef USE_POWER_PINS
         .VPWR(vccd2),
         .VGND(vssd2),
@@ -198,7 +182,7 @@ module user_project (
     );
     assign s_wb_err[22] = 1'b0;
 
-    CF_SRAM_1024x32_WB sram1_inst (
+    CF_SRAM_1024x32_wb_wrapper sram1_inst (
 `ifdef USE_POWER_PINS
         .VPWR(vccd2),
         .VGND(vssd2),
