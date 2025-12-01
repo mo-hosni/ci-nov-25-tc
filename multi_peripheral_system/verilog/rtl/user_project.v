@@ -57,8 +57,6 @@ module user_project (
         .SEL_WIDTH(4),
         .ADDR_SEL_LOW_BIT(16)
     ) bus_splitter (
-        .m_wb_clk_i(wb_clk_i),
-        .m_wb_rst_i(wb_rst_i),
         .m_wb_adr_i(wbs_adr_i),
         .m_wb_dat_i(wbs_dat_i),
         .m_wb_dat_o(wbs_dat_o),
@@ -68,7 +66,6 @@ module user_project (
         .m_wb_we_i(wbs_we_i),
         .m_wb_ack_o(wbs_ack_o),
         .m_wb_err_o(),
-
         .s_wb_cyc_o(s_wb_cyc),
         .s_wb_stb_o(s_wb_stb),
         .s_wb_we_o(s_wb_we),
